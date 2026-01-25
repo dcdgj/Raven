@@ -50,8 +50,14 @@ const LKLView: React.FC = () => {
         </div>
       </div>
       
-      <div className="w-full h-48 bg-gradient-to-t from-purple-900/20 to-transparent rounded-2xl flex items-center justify-center border border-purple-500/20">
-         <span className="text-gray-500 font-mono text-sm">LKL OFFICIAL PARTNER</span>
+      <div className="w-full h-48 rounded-2xl overflow-hidden border border-purple-500/20 relative">
+         <img 
+           src="https://i.postimg.cc/cC96PyMW/013225.png" 
+           alt="LKL Official Partner" 
+           className="w-full h-full object-cover"
+         />
+         {/* Gradient Overlay for better integration */}
+         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent pointer-events-none" />
       </div>
     </div>
   );
