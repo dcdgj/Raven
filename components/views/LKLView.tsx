@@ -30,7 +30,7 @@ const LKLView: React.FC = () => {
           <div>
             <h3 className="text-lg font-bold text-white">서울 LKL 아레나</h3>
             <p className="text-gray-400 text-sm mt-1">
-              모든 경기는 서울 종로구에 위치한 전용 경기장에서 오프라인으로 진행됩니다.
+              모든 경기는 서울에 위치한 전용 경기장에서 진행됩니다.
             </p>
           </div>
         </div>

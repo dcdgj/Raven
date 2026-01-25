@@ -156,17 +156,17 @@ export const HISTORY_DATA: TeamHistory[] = [
 export const ROUTINE: RoutineItem[] = [
   { time: '12:00', activity: '기상' },
   { time: '13:00', activity: '스크림 & 피드백' },
-  { time: '16:40', activity: '점심식사' },
+  { time: '16:40', activity: '점심 식사' },
   { time: '18:00', activity: '휴식' },
   { time: '19:00', activity: '스크림 & 피드백' },
-  { time: '22:00', activity: '저녁식사' },
-  { time: '23:00', activity: '개인연습' },
+  { time: '22:00', activity: '저녁 식사' },
+  { time: '23:00', activity: '개인 연습' },
   { time: '04:00', activity: '퇴근 (자율)' },
 ];
 
 export const FLOORS: FloorInfo[] = [
   { floor: '4F', title: 'Management & Staff', description: '스태프&관리. 단장실, 매니저실' },
-  { floor: '3F', title: 'Living Quarters', description: '선수생활. 개인실 5개, 공용 휴게 공간, 간이 헬스장' },
+  { floor: '3F', title: 'Living Quarters', description: '선수 생활. 개인실 5개, 공용 휴게 공간, 간이 헬스장' },
   { floor: '2F', title: 'Training Center', description: '연습&전략. 메인 스크림 룸, 코치/감독실' },
   { floor: '1F', title: 'Lobby & Dining', description: '공용&외부응대. 식당&주방, 로비' },
 ];
@@ -185,13 +185,17 @@ export const TERMS: Term[] = [
   { term: '매니저 (Manager)', definition: '살림꾼', details: '스케줄, 숙소, 식사 등 생활 전반 케어.' },
 ];
 
-export const PRO_TRAITS = [
-  '챌린저는 기본, 솔랭 점수에 크게 연연하지 않음',
-  '롤이 직업이라 쉴 때는 롤 이야기 기피',
-  '대부분 중졸 (고교 자퇴)',
-  '사회 경험 부족',
-  '연봉은 극비',
-  '경기 시 유니폼 착용, 감독은 정장/유니폼',
-  '개인 장비(키보드/마우스) 지참',
-  '물과 핫팩은 필수'
-];
+export const PRO_GUIDE = {
+  general: [
+    '챌린저는 기본, 솔랭 점수에 크게 연연하지 않음',
+    '롤이 직업이라 쉴 때는 롤 이야기 기피',
+    '대부분 중졸 (고교 자퇴)',
+    '사회 경험 부족',
+    '연봉은 극비'
+  ],
+  match: [
+    '유니폼 착용 (감독은 정장/유니폼)',
+    '개인 장비(키보드/마우스) 지참',
+    '물과 핫팩은 필수'
+  ]
+};

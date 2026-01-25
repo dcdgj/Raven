@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { TERMS, PRO_TRAITS } from '../../constants';
-import { ChevronDown, Info } from 'lucide-react';
+import { TERMS, PRO_GUIDE } from '../../constants';
+import { ChevronDown, Info, Swords } from 'lucide-react';
 
 const GlossaryView: React.FC = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
@@ -16,13 +16,28 @@ const GlossaryView: React.FC = () => {
         <p className="text-gray-500 text-sm">Guide for New Managers</p>
       </div>
 
-      {/* Pro Characteristics */}
+      {/* Pro Characteristics - General */}
       <div className="glass-panel p-5 rounded-2xl border-l-4 border-purple-600">
         <h3 className="text-white font-bold mb-4 flex items-center gap-2">
           <Info className="w-4 h-4 text-purple-500" /> Pro Gamer Traits
         </h3>
         <ul className="space-y-2">
-          {PRO_TRAITS.map((trait, idx) => (
+          {PRO_GUIDE.general.map((trait, idx) => (
+            <li key={idx} className="text-sm text-gray-300 flex items-start gap-2">
+              <span className="text-gray-600 mt-1.5 w-1 h-1 bg-gray-500 rounded-full"></span>
+              {trait}
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      {/* Pro Characteristics - Match Day */}
+      <div className="glass-panel p-5 rounded-2xl border-l-4 border-red-600">
+        <h3 className="text-white font-bold mb-4 flex items-center gap-2">
+          <Swords className="w-4 h-4 text-red-500" /> Match Day Rules
+        </h3>
+        <ul className="space-y-2">
+          {PRO_GUIDE.match.map((trait, idx) => (
             <li key={idx} className="text-sm text-gray-300 flex items-start gap-2">
               <span className="text-gray-600 mt-1.5 w-1 h-1 bg-gray-500 rounded-full"></span>
               {trait}
