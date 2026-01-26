@@ -18,25 +18,39 @@ const App: React.FC = () => {
     setView('RG'); // Default to Team view after start
   };
 
-  if (view === 'START') {
-    return <StartScreen onStart={handleStart} />;
-  }
+  const isStarted = view !== 'START';
 
   return (
-    <div className="min-h-screen bg-neutral-950 text-gray-200 font-sans selection:bg-purple-900 selection:text-white">
-      <AudioPlayer />
+    <div className="min-h-screen bg-neutral-950 text-gray-200 font-sans selection:bg-purple-900 selection:text-white relative">
+      {/* 
+        AudioPlayer is now rendered at the top level. 
+        It receives the 'started' prop to know when to begin playback.
+        It is NOT unmounted when views change, which is crucial for mobile audio.
+      */}
+      <AudioPlayer started={isStarted} />
       
-      <main className="max-w-md mx-auto min-h-screen bg-neutral-950 shadow-2xl overflow-hidden relative border-x border-gray-900/50">
-        {/* View Content */}
-        {view === 'LKL' && <LKLView />}
-        {view === 'RG' && <TeamView />}
-        {view === 'SCHEDULE' && <ScheduleView />}
-        {view === 'BUILDING' && <BuildingView />}
-        {view === 'PLAYERS' && <PlayerView />}
-        {view === 'GLOSSARY' && <GlossaryView />}
-      </main>
+      {/* Start Screen Overlay */}
+      {!isStarted && (
+        <div className="absolute inset-0 z-50">
+          <StartScreen onStart={handleStart} />
+        </div>
+      )}
 
-      <BottomNav currentView={view} setView={setView} />
+      {/* Main Content */}
+      {isStarted && (
+        <>
+          <main className="max-w-md mx-auto min-h-screen bg-neutral-950 shadow-2xl overflow-hidden relative border-x border-gray-900/50">
+            {view === 'LKL' && <LKLView />}
+            {view === 'RG' && <TeamView />}
+            {view === 'SCHEDULE' && <ScheduleView />}
+            {view === 'BUILDING' && <BuildingView />}
+            {view === 'PLAYERS' && <PlayerView />}
+            {view === 'GLOSSARY' && <GlossaryView />}
+          </main>
+
+          <BottomNav currentView={view} setView={setView} />
+        </>
+      )}
     </div>
   );
 };

@@ -1,44 +1,100 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Volume2, VolumeX } from 'lucide-react';
 
-const AudioPlayer: React.FC = () => {
-  // isMuted = true means "Speaker is OFF" (No Sound)
-  // isMuted = false means "Speaker is ON" (Playing)
-  // Initial state set to false so it plays immediately upon mounting (after user interaction/start)
-  const [isMuted, setIsMuted] = useState(false);
+interface Props {
+  started: boolean;
+}
 
-  // SoundCloud Widget URL construction
+// Global declaration for SoundCloud Widget API
+declare global {
+  interface Window {
+    SC: any;
+  }
+}
+
+const AudioPlayer: React.FC<Props> = ({ started }) => {
+  const [isMuted, setIsMuted] = useState(false);
+  const iframeRef = useRef<HTMLIFrameElement>(null);
+  const widgetRef = useRef<any>(null);
+
+  // SoundCloud Widget URL
+  // auto_play is set to false here because we want to control it via code when 'started' becomes true.
   const trackUrl = "https://api.soundcloud.com/tracks/soundcloud:tracks:2253913547?secret_token=s-b30jBL4LC96";
-  // Note: SoundCloud iframe parameters for controlling playback are auto_play. 
-  // 'mute' parameter is unreliable in iframes, so we control sound by mounting/unmounting.
-  const src = `https://w.soundcloud.com/player/?url=${encodeURIComponent(trackUrl)}&auto_play=true&loop=true&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&visual=false`;
+  const src = `https://w.soundcloud.com/player/?url=${encodeURIComponent(trackUrl)}&auto_play=false&loop=true&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&visual=false`;
+
+  // Initialize SoundCloud Widget
+  useEffect(() => {
+    if (window.SC && iframeRef.current) {
+      const widget = window.SC.Widget(iframeRef.current);
+      widgetRef.current = widget;
+
+      // Optional: Log when ready
+      widget.bind(window.SC.Widget.Events.READY, () => {
+        console.log('Audio Player Ready');
+      });
+    }
+  }, []);
+
+  // Handle Game Start (Auto Play)
+  useEffect(() => {
+    if (started && widgetRef.current) {
+      // Small delay to ensure the UI transition doesn't conflict with the play call
+      setTimeout(() => {
+        widgetRef.current.play();
+        widgetRef.current.setVolume(100);
+      }, 500);
+    }
+  }, [started]);
+
+  // Handle Mute Toggle
+  const toggleMute = () => {
+    if (!widgetRef.current) return;
+
+    if (isMuted) {
+      // Unmuting means playing in this context
+      widgetRef.current.play();
+      setIsMuted(false);
+    } else {
+      // Muting means pausing to save data/battery and stop sound
+      widgetRef.current.pause();
+      setIsMuted(true);
+    }
+  };
 
   return (
     <>
-      <div className="fixed top-4 right-4 z-50">
-        <button 
-          onClick={() => setIsMuted(!isMuted)}
-          className={`p-2 rounded-full border backdrop-blur transition-all ${
-            isMuted 
-              ? 'bg-black/50 border-gray-600 text-gray-400 hover:text-white' 
-              : 'bg-purple-900/50 border-purple-500 text-purple-400 hover:bg-purple-900/70'
-          }`}
-          aria-label={isMuted ? "Turn sound on" : "Turn sound off"}
-        >
-          {isMuted ? <VolumeX className="w-5 h-5" /> : <Volume2 className="w-5 h-5" />}
-        </button>
-      </div>
+      {/* 
+        The iframe is always mounted but hidden visually. 
+        This is critical for mobile browsers to maintain the audio session.
+      */}
+      <iframe
+        ref={iframeRef}
+        width="100%"
+        height="166"
+        scrolling="no"
+        frameBorder="no"
+        allow="autoplay"
+        src={src}
+        title="bg-music"
+        className="fixed bottom-0 left-0 opacity-0 pointer-events-none -z-10"
+        style={{ visibility: 'hidden', position: 'absolute' }}
+      />
 
-      {/* Only render the iframe when sound is ON. Unmounting stops the audio reliably. */}
-      {!isMuted && (
-        <iframe
-          width="100%"
-          height="0"
-          style={{ border: 0, position: 'absolute', visibility: 'hidden' }}
-          allow="autoplay"
-          src={src}
-          title="bg-music"
-        />
+      {/* Control Button - Only visible when game has started */}
+      {started && (
+        <div className="fixed top-4 right-4 z-[60] animate-in fade-in duration-1000">
+          <button 
+            onClick={toggleMute}
+            className={`p-2 rounded-full border backdrop-blur transition-all ${
+              isMuted 
+                ? 'bg-black/50 border-gray-600 text-gray-400 hover:text-white' 
+                : 'bg-purple-900/50 border-purple-500 text-purple-400 hover:bg-purple-900/70 shadow-[0_0_15px_rgba(168,85,247,0.5)]'
+            }`}
+            aria-label={isMuted ? "Turn sound on" : "Turn sound off"}
+          >
+            {isMuted ? <VolumeX className="w-5 h-5" /> : <Volume2 className="w-5 h-5" />}
+          </button>
+        </div>
       )}
     </>
   );
