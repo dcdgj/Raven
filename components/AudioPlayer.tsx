@@ -1,9 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, forwardRef, useImperativeHandle } from 'react';
 import { Volume2, VolumeX } from 'lucide-react';
-
-interface Props {
-  started: boolean;
-}
 
 // Global declaration for SoundCloud Widget API
 declare global {
@@ -12,13 +8,21 @@ declare global {
   }
 }
 
-const AudioPlayer: React.FC<Props> = ({ started }) => {
+export interface AudioPlayerRef {
+  play: () => void;
+}
+
+interface Props {
+  started: boolean;
+}
+
+const AudioPlayer = forwardRef<AudioPlayerRef, Props>(({ started }, ref) => {
   const [isMuted, setIsMuted] = useState(false);
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const widgetRef = useRef<any>(null);
 
   // SoundCloud Widget URL
-  // auto_play is set to false here because we want to control it via code when 'started' becomes true.
+  // auto_play is set to false here because we want to control it via code
   const trackUrl = "https://api.soundcloud.com/tracks/soundcloud:tracks:2253913547?secret_token=s-b30jBL4LC96";
   const src = `https://w.soundcloud.com/player/?url=${encodeURIComponent(trackUrl)}&auto_play=false&loop=true&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&visual=false`;
 
@@ -27,24 +31,19 @@ const AudioPlayer: React.FC<Props> = ({ started }) => {
     if (window.SC && iframeRef.current) {
       const widget = window.SC.Widget(iframeRef.current);
       widgetRef.current = widget;
-
-      // Optional: Log when ready
-      widget.bind(window.SC.Widget.Events.READY, () => {
-        console.log('Audio Player Ready');
-      });
     }
   }, []);
 
-  // Handle Game Start (Auto Play)
-  useEffect(() => {
-    if (started && widgetRef.current) {
-      // Small delay to ensure the UI transition doesn't conflict with the play call
-      setTimeout(() => {
+  // Expose play method to parent
+  useImperativeHandle(ref, () => ({
+    play: () => {
+      if (widgetRef.current) {
         widgetRef.current.play();
         widgetRef.current.setVolume(100);
-      }, 500);
+        setIsMuted(false);
+      }
     }
-  }, [started]);
+  }));
 
   // Handle Mute Toggle
   const toggleMute = () => {
@@ -98,6 +97,6 @@ const AudioPlayer: React.FC<Props> = ({ started }) => {
       )}
     </>
   );
-};
+});
 
 export default AudioPlayer;

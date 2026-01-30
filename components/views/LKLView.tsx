@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { MapPin, Calendar, Trophy } from 'lucide-react';
+import { TEAM_ASSETS } from '../../constants';
 
 const LKLView: React.FC = () => {
   return (
@@ -52,7 +53,7 @@ const LKLView: React.FC = () => {
       
       <div className="w-full h-48 rounded-2xl overflow-hidden border border-purple-500/20 relative">
          <img 
-           src="https://i.postimg.cc/cC96PyMW/013225.png" 
+           src={TEAM_ASSETS.stadium} 
            alt="LKL Official Partner" 
            className="w-full h-full object-cover"
          />

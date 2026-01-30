@@ -1,26 +1,43 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { ViewState } from './types';
 import StartScreen from './components/StartScreen';
 import BottomNav from './components/BottomNav';
-import AudioPlayer from './components/AudioPlayer';
+import AudioPlayer, { AudioPlayerRef } from './components/AudioPlayer';
 import LKLView from './components/views/LKLView';
 import TeamView from './components/views/TeamView';
 import ScheduleView from './components/views/ScheduleView';
 import BuildingView from './components/views/BuildingView';
 import PlayerView from './components/views/PlayerView';
 import GlossaryView from './components/views/GlossaryView';
+import { TEAM_ASSETS, PLAYERS } from './constants';
 
 const App: React.FC = () => {
   const [view, setView] = useState<ViewState>('START');
+  const audioRef = useRef<AudioPlayerRef>(null);
 
   // Scroll to top whenever the view changes
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [view]);
 
+  // Preload Images on Mount
+  useEffect(() => {
+    const imagesToPreload = [
+      ...Object.values(TEAM_ASSETS),
+      ...PLAYERS.map(p => p.imageUrl).filter(Boolean) as string[]
+    ];
+
+    imagesToPreload.forEach(src => {
+      const img = new Image();
+      img.src = src;
+    });
+  }, []);
+
   // Handle Start
   const handleStart = () => {
     setView('RG'); // Default to Team view after start
+    // Trigger audio directly on user interaction to bypass autoplay restrictions
+    audioRef.current?.play();
   };
 
   const isStarted = view !== 'START';
@@ -28,11 +45,10 @@ const App: React.FC = () => {
   return (
     <div className="min-h-screen bg-neutral-950 text-gray-200 font-sans selection:bg-purple-900 selection:text-white relative">
       {/* 
-        AudioPlayer is now rendered at the top level. 
-        It receives the 'started' prop to know when to begin playback.
-        It is NOT unmounted when views change, which is crucial for mobile audio.
+        AudioPlayer is rendered at the top level. 
+        It exposes a ref to allow direct control from the start interaction.
       */}
-      <AudioPlayer started={isStarted} />
+      <AudioPlayer ref={audioRef} started={isStarted} />
       
       {/* Start Screen Overlay */}
       {!isStarted && (

@@ -1,5 +1,12 @@
 import { Player, TeamHistory, RoutineItem, FloorInfo, Term } from './types';
 
+export const TEAM_ASSETS = {
+  logo: "https://raw.githubusercontent.com/dcdgj/-/refs/heads/main/rogo.png",
+  uniformFront: "https://raw.githubusercontent.com/dcdgj/-/refs/heads/main/front.png",
+  uniformBack: "https://raw.githubusercontent.com/dcdgj/-/refs/heads/main/back.png",
+  stadium: "https://raw.githubusercontent.com/dcdgj/-/refs/heads/main/stadium.png",
+};
+
 export const PLAYERS: Player[] = [
   {
     id: 'rift',
@@ -25,7 +32,7 @@ export const PLAYERS: Player[] = [
       '단 거 좋아함',
       '연애 경험 없음 (동정)'
     ],
-    imageUrl: 'https://i.postimg.cc/RVGZb72T/11.png'
+    imageUrl: 'https://raw.githubusercontent.com/dcdgj/-/refs/heads/main/a/11.png'
   },
   {
     id: 'ion',
@@ -48,7 +55,7 @@ export const PLAYERS: Player[] = [
       '매운 음식 못 먹음',
       '연애 경험 없음 (동정)'
     ],
-    imageUrl: 'https://i.postimg.cc/sXG6QJCw/11.png'
+    imageUrl: 'https://raw.githubusercontent.com/dcdgj/-/refs/heads/main/b/11.png'
   },
   {
     id: '900',
@@ -76,7 +83,7 @@ export const PLAYERS: Player[] = [
       '연애 경험 없음 (동정)',
       'HIDDEN: RG와 재계약 결심 (단장과의 협상 시에만 밝힘)'
     ],
-    imageUrl: 'https://i.postimg.cc/6p6MLKN4/11.png'
+    imageUrl: 'https://raw.githubusercontent.com/dcdgj/-/refs/heads/main/c/11.png'
   },
   {
     id: 'eclipse',
@@ -99,7 +106,7 @@ export const PLAYERS: Player[] = [
       '형들에게 반말 섞어 씀',
       '가벼운 연애 경험 1회 (동정)'
     ],
-    imageUrl: 'https://i.postimg.cc/mkNSCXXk/11.png'
+    imageUrl: 'https://raw.githubusercontent.com/dcdgj/-/refs/heads/main/d/11.png'
   },
   {
     id: 'zeep',
@@ -125,7 +132,7 @@ export const PLAYERS: Player[] = [
       '꾸준한 운동, 몸에 열 많음',
       '동정'
     ],
-    imageUrl: 'https://i.postimg.cc/d3B8L73n/11.png'
+    imageUrl: 'https://raw.githubusercontent.com/dcdgj/-/refs/heads/main/e/11.png'
   },
   {
     id: 'gun',
@@ -146,7 +153,7 @@ export const PLAYERS: Player[] = [
       '겉은 과묵하나 실제론 말 많음',
       '꾸준한 운동'
     ],
-    imageUrl: 'https://i.postimg.cc/SR6GcSNF/11.png'
+    imageUrl: 'https://raw.githubusercontent.com/dcdgj/-/refs/heads/main/f/11.png'
   }
 ];
 
