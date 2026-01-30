@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ViewState } from './types';
 import StartScreen from './components/StartScreen';
 import BottomNav from './components/BottomNav';
@@ -12,6 +12,11 @@ import GlossaryView from './components/views/GlossaryView';
 
 const App: React.FC = () => {
   const [view, setView] = useState<ViewState>('START');
+
+  // Scroll to top whenever the view changes
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [view]);
 
   // Handle Start
   const handleStart = () => {

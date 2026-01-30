@@ -1,10 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { PLAYERS } from '../../constants';
 import { Player } from '../../types';
 import { User, ChevronRight, Lock, Heart, Shield, Swords, Zap, Activity, Brain } from 'lucide-react';
 
 const PlayerView: React.FC = () => {
   const [selectedPlayer, setSelectedPlayer] = useState<Player | null>(null);
+
+  useEffect(() => {
+    if (selectedPlayer) {
+      window.scrollTo(0, 0);
+    }
+  }, [selectedPlayer]);
 
   if (selectedPlayer) {
     // Detail View
@@ -19,7 +25,20 @@ const PlayerView: React.FC = () => {
           <span className="text-xs px-2 py-0.5 rounded bg-purple-900 text-purple-200">{selectedPlayer.role}</span>
         </div>
 
-        <div className="p-5 space-y-6">
+        {/* Player Image (Full Bleed - No Padding) */}
+        {selectedPlayer.imageUrl && (
+            <div className="w-full relative animate-in zoom-in-95 duration-500">
+              <img 
+                src={selectedPlayer.imageUrl} 
+                alt={selectedPlayer.name}
+                className="w-full h-auto object-cover block" 
+              />
+              {/* Subtle gradient at the bottom to blend into the content area */}
+              <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-neutral-950 to-transparent pointer-events-none" />
+            </div>
+        )}
+
+        <div className="p-5 space-y-6 relative z-10">
           {/* Profile Basic */}
           <section className="space-y-4">
             <h3 className="text-purple-400 text-xs uppercase tracking-widest font-bold">Identity</h3>
@@ -141,25 +160,49 @@ const PlayerView: React.FC = () => {
   return (
     <div className="p-6 pb-24 animate-in fade-in slide-in-from-bottom-4 duration-500">
       <h2 className="text-3xl font-black text-white mb-6">ROSTER 2025</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      {/* Changed to strictly single column grid with larger gap */}
+      <div className="grid grid-cols-1 gap-6">
         {PLAYERS.map((player) => (
           <div 
             key={player.id}
             onClick={() => setSelectedPlayer(player)}
-            className="group relative h-32 glass-panel rounded-xl overflow-hidden cursor-pointer hover:border-purple-500 transition-colors"
+            // Increased height to h-64 (approx 256px) for more impact
+            className="group relative h-64 glass-panel rounded-2xl overflow-hidden cursor-pointer hover:border-purple-500 transition-all duration-300"
           >
-            <div className="absolute top-0 right-0 p-3 opacity-10 group-hover:opacity-20 transition-opacity">
-               <User className="w-24 h-24 text-white" />
+            {/* Expanded Image Area */}
+            <div className="absolute right-0 top-0 bottom-0 w-3/4 pointer-events-none overflow-hidden">
+                {player.imageUrl ? (
+                  <>
+                    <img 
+                        src={player.imageUrl} 
+                        alt={player.name} 
+                        // Adjusted object positioning to work well with the wider area
+                        className="absolute right-[-10%] top-0 w-full h-full object-cover object-top opacity-50 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500 [mask-image:linear-gradient(to_left,black_60%,transparent_100%)]" 
+                    />
+                  </>
+                ) : (
+                  <div className="absolute top-0 right-0 p-3 opacity-10 group-hover:opacity-20 transition-opacity">
+                      <User className="w-40 h-40 text-white" />
+                  </div>
+                )}
             </div>
             
-            <div className="relative h-full p-4 flex flex-col justify-between z-10">
-              <div>
-                <span className="text-purple-400 text-xs font-bold tracking-widest block mb-1">{player.role}</span>
-                <h3 className="text-2xl font-black text-white">{player.name}</h3>
+            <div className="relative h-full p-6 flex flex-col justify-between z-10 w-2/3">
+              <div className="space-y-2">
+                <span className="inline-block px-2 py-1 bg-purple-900/50 rounded text-purple-300 text-xs font-bold tracking-widest border border-purple-500/30">
+                  {player.role}
+                </span>
+                <h3 className="text-4xl font-black text-white tracking-tighter uppercase drop-shadow-lg">
+                  {player.name}
+                </h3>
+                <p className="text-gray-400 text-sm font-medium line-clamp-1">
+                  {player.realName.split('(')[0]}
+                </p>
               </div>
-              <div className="flex items-center justify-between">
-                <span className="text-gray-400 text-sm">{player.realName.split('(')[0]}</span>
-                <ChevronRight className="w-5 h-5 text-purple-500 transform group-hover:translate-x-1 transition-transform" />
+
+              <div className="flex items-center gap-2">
+                <span className="text-xs text-gray-500 font-mono">View Profile</span>
+                <ChevronRight className="w-4 h-4 text-purple-500 transform group-hover:translate-x-1 transition-transform" />
               </div>
             </div>
           </div>

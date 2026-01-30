@@ -21,6 +21,7 @@ export interface Player {
   alcohol?: string;
   loveLife?: string;
   pet?: string;
+  imageUrl?: string;
 }
 
 export interface TeamHistory {

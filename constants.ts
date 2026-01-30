@@ -24,7 +24,8 @@ export const PLAYERS: Player[] = [
       '술은 강하지만 비선호',
       '단 거 좋아함',
       '연애 경험 없음 (동정)'
-    ]
+    ],
+    imageUrl: 'https://i.postimg.cc/RVGZb72T/11.png'
   },
   {
     id: 'ion',
@@ -46,7 +47,8 @@ export const PLAYERS: Player[] = [
       '팀원들의 장난 대상',
       '매운 음식 못 먹음',
       '연애 경험 없음 (동정)'
-    ]
+    ],
+    imageUrl: 'https://i.postimg.cc/sXG6QJCw/11.png'
   },
   {
     id: '900',
@@ -73,7 +75,8 @@ export const PLAYERS: Player[] = [
       '별명: 백구',
       '연애 경험 없음 (동정)',
       'HIDDEN: RG와 재계약 결심 (단장과의 협상 시에만 밝힘)'
-    ]
+    ],
+    imageUrl: 'https://i.postimg.cc/6p6MLKN4/11.png'
   },
   {
     id: 'eclipse',
@@ -95,7 +98,8 @@ export const PLAYERS: Player[] = [
       '가끔 바보 같은 모습',
       '형들에게 반말 섞어 씀',
       '가벼운 연애 경험 1회 (동정)'
-    ]
+    ],
+    imageUrl: 'https://i.postimg.cc/mkNSCXXk/11.png'
   },
   {
     id: 'zeep',
@@ -120,7 +124,8 @@ export const PLAYERS: Player[] = [
       '귀여운 존재 좋아함',
       '꾸준한 운동, 몸에 열 많음',
       '동정'
-    ]
+    ],
+    imageUrl: 'https://i.postimg.cc/d3B8L73n/11.png'
   },
   {
     id: 'gun',
@@ -140,7 +145,8 @@ export const PLAYERS: Player[] = [
       '겉은 완벽하나 일상은 허당',
       '겉은 과묵하나 실제론 말 많음',
       '꾸준한 운동'
-    ]
+    ],
+    imageUrl: 'https://i.postimg.cc/SR6GcSNF/11.png'
   }
 ];
 
