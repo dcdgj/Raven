@@ -1,14 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { PLAYERS } from '../../constants';
 import { Player } from '../../types';
 import { User, ChevronRight, Lock, Heart, Shield, Swords, Zap, Activity, Brain } from 'lucide-react';
 
 const PlayerView: React.FC = () => {
   const [selectedPlayer, setSelectedPlayer] = useState<Player | null>(null);
+  const scrollPositionRef = useRef(0);
 
   useEffect(() => {
     if (selectedPlayer) {
       window.scrollTo(0, 0);
+    } else {
+      window.scrollTo(0, scrollPositionRef.current);
     }
   }, [selectedPlayer]);
 
@@ -165,7 +168,10 @@ const PlayerView: React.FC = () => {
         {PLAYERS.map((player) => (
           <div 
             key={player.id}
-            onClick={() => setSelectedPlayer(player)}
+            onClick={() => {
+              scrollPositionRef.current = window.scrollY;
+              setSelectedPlayer(player);
+            }}
             // Increased height to h-64 (approx 256px) for more impact
             className="group relative h-64 glass-panel rounded-2xl overflow-hidden cursor-pointer hover:border-purple-500 transition-all duration-300"
           >

@@ -1,10 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts';
 import { HISTORY_DATA, TEAM_ASSETS } from '../../constants';
 import { Shirt, ZoomIn, X } from 'lucide-react';
 
 const TeamView: React.FC = () => {
   const [modalImage, setModalImage] = useState<string | null>(null);
+
+  // Lock body scroll when modal is open
+  useEffect(() => {
+    if (modalImage) {
+      document.documentElement.style.overflow = 'hidden';
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.documentElement.style.overflow = '';
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.documentElement.style.overflow = '';
+      document.body.style.overflow = '';
+    };
+  }, [modalImage]);
 
   return (
     <div className="p-6 space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-500 pb-24">
@@ -109,22 +125,34 @@ const TeamView: React.FC = () => {
         </div>
       </div>
 
-      {/* Image Modal */}
-      {modalImage && (
+      {/* Full Screen Image Modal */}
+      {modalImage && createPortal(
         <div 
-          className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4"
+          className="fixed inset-0 z-[9999] bg-black/95 flex items-center justify-center animate-in fade-in duration-300 touch-none"
           onClick={() => setModalImage(null)}
+          onTouchMove={(e) => e.preventDefault()}
         >
-          <div className="relative max-w-full max-h-full">
-            <button 
-              className="absolute -top-10 right-0 text-white p-2"
-              onClick={() => setModalImage(null)}
-            >
-              <X className="w-8 h-8" />
-            </button>
-            <img src={modalImage} alt="Uniform Detail" className="max-h-[85vh] object-contain rounded-lg" />
+          {/* Close button */}
+          <button 
+            className="absolute top-4 right-4 text-white/70 hover:text-white transition-colors p-2 z-[10000]"
+            onClick={(e) => {
+              e.stopPropagation();
+              setModalImage(null);
+            }}
+          >
+            <X className="w-8 h-8" />
+          </button>
+          
+          {/* Image Container */}
+          <div className="w-full h-full p-2 flex items-center justify-center pointer-events-none">
+            <img 
+              src={modalImage} 
+              alt="Uniform Detail" 
+              className="max-w-full max-h-full object-contain pointer-events-auto" 
+            />
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </div>
   );
