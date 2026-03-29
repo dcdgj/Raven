@@ -24,7 +24,7 @@ const App: React.FC = () => {
   useEffect(() => {
     const imagesToPreload = [
       ...Object.values(TEAM_ASSETS),
-      ...PLAYERS.map(p => p.imageUrl).filter(Boolean) as string[]
+      ...PLAYERS.flatMap(p => p.imageUrls).filter(Boolean) as string[]
     ];
 
     imagesToPreload.forEach(src => {

@@ -30,7 +30,7 @@ const TeamView: React.FC = () => {
           <img src={TEAM_ASSETS.logo} alt="RG Logo" className="w-full h-full object-contain" />
         </div>
         <div className="text-center">
-          <h1 className="text-3xl font-black text-white tracking-widest">RAVEN GAMING</h1>
+          <h1 className="text-3xl font-black text-white tracking-widest font-orbitron">RAVEN GAMING</h1>
           <p className="text-purple-400 font-medium">Flight to the Unknown</p>
         </div>
       </div>
@@ -112,16 +112,12 @@ const TeamView: React.FC = () => {
         </div>
 
         <div className="space-y-2">
-            {HISTORY_DATA.slice().reverse().map((item) => (
+            {HISTORY_DATA.map((item) => (
                 <div key={item.year} className="flex text-sm p-2 border-b border-gray-800">
                     <span className="w-16 font-mono text-purple-400">{item.year}</span>
                     <span className="flex-1 text-gray-300">{item.description}</span>
                 </div>
             ))}
-            <div className="flex text-sm p-2 border-b border-gray-800">
-              <span className="w-16 font-mono text-purple-400">2019</span>
-              <span className="flex-1 text-gray-300">05.10 창단</span>
-            </div>
         </div>
       </div>
 

@@ -6,7 +6,7 @@
     <title>Raven Gaming (RG)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://w.soundcloud.com/player/api.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
       html {
         overflow-y: scroll; /* 스크롤바 트랙을 항상 표시하여 레이아웃 흔들림 방지 */
@@ -16,6 +16,9 @@
         background-color: #050505;
         color: #e5e5e5;
         overflow-x: hidden;
+      }
+      .font-orbitron {
+        font-family: 'Orbitron', sans-serif;
       }
       /* Custom Scrollbar */
       ::-webkit-scrollbar {
@@ -69,6 +72,11 @@
 
       .delay-150 { animation-delay: 150ms; }
       .delay-300 { animation-delay: 300ms; }
+
+      @keyframes scan {
+        0% { transform: translateY(0); }
+        100% { transform: translateY(192px); } /* 192px is h-48 */
+      }
     </style>
   <script type="importmap">
 {
@@ -83,9 +91,11 @@
   }
 }
 </script>
+<link rel="stylesheet" href="/index.css">
 </head>
   <body>
     <div id="root"></div>
     <script type="module" src="./index.tsx"></script>
-  </body>
+  <script type="module" src="/index.tsx"></script>
+</body>
 </html>

@@ -1,5 +1,12 @@
 export type ViewState = 'START' | 'LKL' | 'RG' | 'SCHEDULE' | 'BUILDING' | 'PLAYERS' | 'GLOSSARY';
 
+export interface PetInfo {
+  type: string;
+  name: string;
+  age: string;
+  description: string;
+}
+
 export interface Player {
   id: string;
   role: 'TOP' | 'JGL' | 'MID' | 'BOT' | 'SUP' | 'HEAD COACH';
@@ -9,6 +16,7 @@ export interface Player {
   enneagram: string;
   birth: string;
   appearance: string;
+  height: string;
   outfit: string;
   personality: string; // Keywords separated by +
   traits: string[];
@@ -16,12 +24,14 @@ export interface Player {
   signatures?: string[];
   contract: string;
   transferHistory?: string;
+  pastExperience?: string;
   routine?: string;
-  secret: string[]; // Specific lore/romance details
+  features: string[]; // Specific lore/romance details/traits
+  hobby?: string;
   alcohol?: string;
   loveLife?: string;
-  pet?: string;
-  imageUrl?: string;
+  pet?: PetInfo;
+  imageUrls: string[];
 }
 
 export interface TeamHistory {

@@ -36,14 +36,14 @@ const ScheduleView: React.FC = () => {
           Additional Rules
         </h3>
         <ul className="space-y-3 text-sm text-gray-400">
-          <li className="flex gap-2">
-            <span className="text-purple-500">•</span>
-            추가 연습 및 방송 시간은 자율입니다.
+          <li className="flex gap-2 items-start">
+            <span className="text-purple-500 flex-shrink-0">•</span>
+            <span>추가 연습 및 방송 시간은 자율입니다.</span>
           </li>
-          <li className="flex gap-2">
-            <span className="text-purple-500">•</span>
-            <span className="text-gray-300 font-medium">정기 방송:</span>
-            시즌 중 매주 월요일 23:30 ~ 02:30
+          <li className="flex gap-2 items-start">
+            <span className="text-purple-500 flex-shrink-0">•</span>
+            <span className="text-gray-300 font-medium flex-shrink-0 whitespace-nowrap">정기 방송:</span>
+            <span className="text-gray-400">시즌 중 매주 월요일 23:30 ~ 02:30</span>
           </li>
         </ul>
       </div>
