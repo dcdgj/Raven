@@ -43,7 +43,7 @@ const ScheduleView: React.FC = () => {
           <li className="flex gap-2 items-start">
             <span className="text-purple-500 flex-shrink-0">•</span>
             <span className="text-gray-300 font-medium flex-shrink-0 whitespace-nowrap">정기 방송:</span>
-            <span className="text-gray-400">시즌 중 매주 월요일 23:30 ~ 02:30</span>
+            <span className="text-gray-400">휴가, 중요 대회 기간 제외 매주 월요일 23:30 ~ 02:30</span>
           </li>
         </ul>
       </div>
