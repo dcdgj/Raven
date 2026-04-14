@@ -19,7 +19,7 @@ export const PLAYERS: Player[] = [
     appearance: '흑발, 흑안',
     height: '184cm',
     outfit: '회색 후드집업',
-    personality: '과묵+쿨데레+또라이+승부욕+무관심한 듯 관심+직설적 말투',
+    personality: '쿨데레+또라이+승부욕+무관심한 듯 관심+과묵+직설적 말투',
     traits: ['적극적인 콜', '강한 라인전', '사이드 플레이', '안정적인 성장'],
     weaknesses: ['유리할 때 무리함', '라인전 몰두', '갱킹 잘 당함'],
     signatures: ['그웬', '잭스', '카밀'],

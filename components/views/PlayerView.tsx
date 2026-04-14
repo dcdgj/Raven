@@ -170,6 +170,16 @@ const PlayerView: React.FC = () => {
                  <div className="text-purple-400 font-bold">{selectedPlayer.enneagram}</div>
                </div>
             </div>
+
+            {/* Personality */}
+            <div className="space-y-2 pt-2">
+               <h3 className="text-purple-400 text-xs uppercase tracking-widest font-bold">Personality</h3>
+               <div className="flex flex-wrap gap-2">
+                  {selectedPlayer.personality.split('+').map((p, i) => (
+                    <span key={i} className="px-3 py-1 bg-gray-800 text-gray-200 rounded-full text-xs">{p.trim()}</span>
+                  ))}
+               </div>
+            </div>
           </section>
 
           {/* Contract & Transfer */}
@@ -191,16 +201,6 @@ const PlayerView: React.FC = () => {
                     <span className="text-white">{selectedPlayer.transferHistory}</span>
                   </div>
                 )}
-             </div>
-          </section>
-
-          {/* Personality */}
-          <section className="space-y-2">
-             <h3 className="text-purple-400 text-xs uppercase tracking-widest font-bold">Personality</h3>
-             <div className="flex flex-wrap gap-2">
-                {selectedPlayer.personality.split('+').map((p, i) => (
-                  <span key={i} className="px-3 py-1 bg-gray-800 text-gray-200 rounded-full text-xs">{p.trim()}</span>
-                ))}
              </div>
           </section>
 
